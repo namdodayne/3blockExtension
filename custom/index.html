@@ -1,0 +1,89 @@
+<html lang="en">
+
+<head>
+   <title>Custom ✍️ | 3Block</title>
+   <meta name="viewport" content="height=device-height, initial-scale=1, user-scalable=no">
+   <meta name="description"
+      content="Todost - Beautiful Todo list to uses 🍪 to track your tasks ! Made with ❤️ by Quentin Colus" />
+   <!-- <link rel="shortcut icon" href="todost.png"> -->
+   <link href="css.css" rel="stylesheet">
+   <meta charset="UTF-8">
+   <link rel="stylesheet" href="reset.min.css">
+   <link rel='stylesheet prefetch' href='bootstrap.min.css'>
+   <link rel='stylesheet prefetch' href='animate.min.css'>
+   <link rel='stylesheet prefetch' href='font-awesome.min.css'>
+   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
+</head>
+
+<body>
+   <div class="logo">
+      <img src="ThreeBlocksystem.svg" alt="3Block logo" />
+   </div>
+
+   <body class="body">
+      <div class="container">
+         <div class="today" style="font-size: 40px;"></div>
+         <div>
+            <p style="font-size: 30px; align-items: center; text-align: center; text-decoration: none;">You custom your
+               block and allow site in
+               extension here!</p>
+         </div>
+         <div class="row">
+            <div class="col-md-4 col-md-offset-0 col-xs-6 col-xs-offset-3">
+               <div class="checkbox123 checked ">
+                  <input type="checkbox" id="check_White">
+                  <label for="check_White"><span class="indicators" data-label-off="off"
+                        data-label-on="on"></span></label>
+               </div>
+               <h2 style="color: white; text-align: center;">WhiteList</h2>
+
+               <div class="add-control">
+                  <div class="form-group has-feedback">
+                     <input type="text" class="form-control whitelist" placeholder="✍️ Add item..." />
+                     <i class="fa fa-plus form-control-feedback add-btn whitelistbtn" title="Add item"></i>
+                  </div>
+               </div>
+               <p class="err text-danger text-center hidden"><i class="fa fa-warning"></i> Oops! Please, enter
+                  <b>Valid URL</b>
+               </p>
+               <p class="no-items-white text-muted text-center hidden"><i class="fa fa-ban"></i></p>
+               <ul class="todo-list whitelisttodo">
+               </ul>
+            </div>
+
+            <div class="col-md-4 col-md-offset-4 col-xs-6 col-xs-offset-3">
+               <div class="checkbox123 checked ">
+                  <input type="checkbox" id="check_Black">
+                  <label for="check_Black"><span class="indicators" data-label-off="off"
+                        data-label-on="on"></span></label>
+               </div>
+               <h2 style="color: white; text-align: center;">BlackList</h2>
+               <div class="add-control">
+                  <div class="form-group has-feedback">
+                     <input type="text" class="form-control blacklist" placeholder="✍️ Add item..." />
+                     <i class="fa fa-plus form-control-feedback add-btn blacklistbtn" title="Add item"></i>
+                  </div>
+               </div>
+               <p class="err1 text-danger text-center hidden"><i class="fa fa-warning"></i> Oops! Please, enter
+                  <b>Valid URL</b>
+               </p>
+               <p class="no-items-black text-muted text-center hidden"><i class="fa fa-ban"></i></p>
+               <ul class="todo-list blacklisttodo">
+               </ul>
+            </div>
+         </div>
+      </div>
+
+      </main>
+      </div>
+      <script src='jquery.min.js'></script>
+      <script src='jquery-ui.min.js'></script>
+      <script src="script.js"></script>
+      <script src="script_BlackList.js"></script>
+      <script src="scrollreveal.min.js"></script>
+      <script src="customList.js"></script>
+   </body>
+</body>

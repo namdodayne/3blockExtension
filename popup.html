@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>3 Block</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+
+  <img id="soft" src="/images/logoMini.png" alt="logo 3block">
+  <div class="wrapper">
+    <button class="button-33 center" id="myCheck" role="button">Children Mode: <b>On</b></button>
+  </div>
+  <div id="chart" class="chart-container"></div>
+  <svg class="donut" width="300" height="100%" viewBox="0 0 44 44">
+    <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+
+
+    <circle id="donut-segment1" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#b1c94e"
+      stroke-width="3" stroke-dasharray="0 100" stroke-dashoffset="25"></circle>
+
+
+    <circle id="donut-segment3" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#aaddff"
+      stroke-width="3" stroke-dasharray="0 100" stroke-dashoffset="25"></circle>
+
+
+    <circle id="donut-segment2" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ce4b99"
+      stroke-width="3" stroke-dasharray="0 100" stroke-dashoffset="25"></circle>
+
+    <g class="chart-text">
+      <text x="50%" y="50%" class="chart-number" id="totalValue">0</text>
+      <text x="50%" y="50%" class="chart-label">Safe</text>
+    </g>
+  </svg>
+  <!-- <div id="myChart" style="width: 100%; max-width: 100px; height: 50px"></div> -->
+  <!-- <h2 id="popup"></h2> -->
+  <!-- <h2 id="engine"></h2> -->
+  <div id="content">
+    <table id="iframes">
+      <!-- chỉ là css thôi -->
+      <thead>
+        <tr>
+          <td>Iframe Source Domain</td>
+          <td>Delete</td>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div id="noSrc">
+      <span id="iframesNoSrc"></span>
+      <br />
+      <button id="deleteNoSrc" class="material-icons">delete</button>
+    </div>
+    <button id="deleteAll">Delete All <span class="material-icons">delete</span></button>
+  </div>
+  <div id="loading" class="notification">Waiting for page to load...</div>
+  <div id="default" class="notification">No iframes detected!</div>
+  <div id="error" class="notification">Sorry, an error occurred retrieving iframe information on this page.</div>
+  <div id="footer">Iframe Detector powered by <a id="siteLink" href="https://3block.systems/">3Block</a></div>
+</body>
+<script type="module" src="popup.js"></script>
+<script type="module" src="background.js"></script>
+
+</html>

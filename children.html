@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="children.css" />
+</head>
+
+<body class="align ">
+  <h2 id="ChildrenProtect"> </h2>
+  <h1 id="EnterNewPassword">Enter your password</h1>
+
+  <div class="split">
+
+    <div class="form__field">
+      <input id="pswd" type="password" class="form__input" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required />
+      <span class="icon"></span>
+    </div>
+
+  </div>
+  <div class='row'>
+    <br>
+    <button class="button-33" id="childrenProtectButton" role="button" style="display: none;">Children Protect
+      <b>On</b></button>
+    <button class="button-36" id="childrenBlackList" role="button" style="display: none;"><b>Black list</b> for
+      Children</button>
+  </div>
+
+
+  <p id="notePassword" style="font-size: 20px;">Minimum eight characters, at least one letter and one number</p>
+
+  <button class="button-74" id='PasswordButton' role="button">Change password</button>
+
+  <div class="container changePassword" style="display: none;">
+    <section class="content bgcolor-10">
+      <!-- <h2>Change password</h2> -->
+      <span class="input input--shoko">
+        <input class="input__field input__field--shoko" type="password" id="input-4" />
+        <label class="input__label input__label--shoko" for="input-4">
+          <span class="input__label-content input__label-content--shoko">Current Password</span>
+        </label>
+        <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+          <path
+            d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+          <path
+            d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+        </svg>
+      </span>
+      <span class="input input--shoko">
+        <input class="input__field input__field--shoko" type="password" id="input-5" />
+        <label class="input__label input__label--shoko" for="input-5">
+          <span class="input__label-content input__label-content--shoko">New Password</span>
+        </label>
+        <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+          <path
+            d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+          <path
+            d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+        </svg>
+      </span>
+      <span class="input input--shoko">
+        <input class="input__field input__field--shoko" type="password" id="input-6" />
+        <label class="input__label input__label--shoko" for="input-6">
+          <span class="input__label-content input__label-content--shoko">Confirm New Password</span>
+        </label>
+        <svg class="graphic graphic--shoko" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+          <path
+            d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0" />
+          <path
+            d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0" />
+        </svg>
+      </span>
+    </section>
+
+  </div>
+
+  <script src="./children.js"></script>
+</body>
+
+</html>
