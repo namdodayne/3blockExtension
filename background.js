@@ -326,7 +326,7 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                                             ) {
                                                 resolve(true);
                                                 chrome.tabs.update(tabId, {
-                                                    url: "404.html",
+                                                    url: "/404-children/index2.html#",
                                                 });
                                             }
                                             resolve(false);
@@ -459,9 +459,7 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                                         ) {
                                             resolve(true);
                                             chrome.tabs.update(tabId, {
-                                                url:
-                                                    "/404-black/dist/index2.html#" +
-                                                    surl,
+                                                url: "/404-black/dist/index2.html#",
                                             });
                                         }
                                         resolve(false);
@@ -577,9 +575,7 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                                                         chrome.tabs.update(
                                                             tabId,
                                                             {
-                                                                url:
-                                                                    "404.html#" +
-                                                                    surl,
+                                                                url: "/404-children/index.html#",
                                                             }
                                                         );
                                                     }
@@ -653,7 +649,7 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                                     "Check true " + results + " by API 18 Plus"
                                 );
                                 chrome.tabs.update(tabId, {
-                                    url: "404.html#" + surl,
+                                    url: "/404-children/index.html#",
                                 });
                             } else {
                                 console.info("API 18 Plus next! :" + results);
