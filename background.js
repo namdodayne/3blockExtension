@@ -500,7 +500,6 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                                 );
                             });
                         }
-
                         const checkWhitePublic = await blockWhitePublic();
                         if (checkWhitePublic) {
                             console.warn(
@@ -588,12 +587,17 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                             });
                         }
 
-                        const checkCache18Plus = await blockCache18Plus();
-                        if (checkCache18Plus) {
-                            console.warn(
-                                "Check true " + results + " by Cache 18 Plus"
-                            );
-                            return;
+                        if (checkChildOnOff) {
+                            getCache18();
+                            const checkCache18Plus = await blockCache18Plus();
+                            if (checkCache18Plus) {
+                                console.warn(
+                                    "Check true " +
+                                        results +
+                                        " by Cache 18 Plus"
+                                );
+                                return;
+                            }
                         }
                         // console.info("Cache 18 Plus next! :" + results);
 
@@ -639,8 +643,35 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                             if (results == undefined) {
                                 return;
                             }
+                            //todo White list Public check
+                            function blockWhitePublics() {
+                                return new Promise((resolve, reject) => {
+                                    chrome.storage.local.get(
+                                        ["whitelist", "good"],
+                                        function (local) {
+                                            const { whitelist, good } = local;
+                                            if (
+                                                Array.isArray(whitelist) &&
+                                                good &&
+                                                whitelist.find((domain) => {
+                                                    if (domain === results) {
+                                                        return true;
+                                                    }
+                                                })
+                                            ) {
+                                                resolve(true);
+                                            }
+                                            resolve(false);
+                                        }
+                                    );
+                                });
+                            }
+                            const checkWhiteOn = await blockWhitePublics();
+                            //! Nếu có trong white list rồi thì ko scan 18+
+                            if (checkWhiteOn) {
+                                return;
+                            }
                             console.log("call API AI! : " + results);
-                            return;
                             const isAdult = await is18Plus(results, false); //todo False là ko có AI
                             // const isAdult = false;
                             // console.log("IsAdult " + isAdult);

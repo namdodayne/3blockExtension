@@ -137,10 +137,10 @@ chrome.storage.local.get(["enabledchild"], (dataChild) => {
         checkBox.style.color = "green";
     }
 });
-checkBox.addEventListener("click", myFunction);
-function myFunction() {
-    window.open("/children.html");
-}
+checkBox.addEventListener("click", function () {
+    window.open("/childrenPassword/index.html");
+});
+
 // Load page in new tab
 function loadPage() {
     chrome.runtime.sendMessage({
@@ -225,80 +225,110 @@ function handleDeleteClick(e) {
 
 // Handle iframes from the content script
 async function handleIframeInfo(iframeInfo) {
-    // const whiteListChecked = await getWhiteListCheck();
-    if (iframeInfo == undefined) {
-        // Page is still loading
-        return;
-    } else {
-        document.getElementById("loading").style.display = "none";
-    }
-
-    var iframe_srcs = iframeInfo["iframe_srcs"];
-    var hostname = iframeInfo["hostname"];
-    // alert(iframe_srcs);
-    var iframes_no_src = 0;
-    if (iframe_srcs.length > 0) {
-        for (var i = 0; i < iframe_srcs.length; i++) {
-            if (iframe_srcs[i] == null) {
-                iframes_no_src++;
-                continue;
-            }
-
-            // Add iframe to table
-            var tbody = document
-                .getElementById("iframes")
-                .getElementsByTagName("tbody")[0];
-            var tr = tbody.insertRow(-1); // append row to end
-            var td_domain = tr.insertCell(0);
-            //var td_source = tr.insertCell(1);
-            var td_delete = tr.insertCell(1);
-
-            var iframe_hostname = hostname; // assume if src invalid it's on the current domain
-            try {
-                var iframe_src_url = new URL(iframe_srcs[i]);
-                iframe_hostname = iframe_src_url.hostname;
-            } catch (e) {
-                // Failed to convert src to URL
-            }
-
-            td_domain.innerHTML = iframe_hostname;
-            td_domain.className += "domain";
-            //td_source.innerHTML = iframe_srcs[i];
-            td_delete.className += "delete";
-
-            // Check if iframe src is from current domain
-            if (hostname.indexOf(iframe_hostname) > -1) {
-                td_domain.classList.add("iframeOk");
-            } else {
-                td_domain.classList.add("iframeWarning");
-            }
-
-            // Create delete button
-            var deleteButton = document.createElement("button");
-            deleteButton.className = "material-icons";
-            deleteButton.innerHTML = "DEL";
-            deleteButton.onclick = handleDeleteClick;
-            deleteButton.dataset["id"] = i;
-            td_delete.appendChild(deleteButton);
-        }
-
-        if (iframes_no_src != iframe_srcs.length) {
-            document.getElementById("iframes").style.display = "block";
+    chrome.storage.local.get(["whitelist"], (local) => {
+        const { whitelist } = local;
+        var countWhite = 0;
+        //todo Here is code iframe render
+        // const whiteListChecked = await getWhiteListCheck();
+        if (iframeInfo == undefined) {
+            // Page is still loading
+            return;
         } else {
-            document.getElementById("iframes").style.display = "none";
+            document.getElementById("loading").style.display = "none";
         }
 
-        if (iframes_no_src == 0) {
-            document.getElementById("deleteNoSrc").style.display = "none";
+        var iframe_srcs = iframeInfo["iframe_srcs"];
+        var hostname = iframeInfo["hostname"];
+        // alert(iframe_srcs);
+        var iframes_no_src = 0;
+        if (iframe_srcs.length > 0) {
+            for (var i = 0; i < iframe_srcs.length; i++) {
+                if (iframe_srcs[i] == null) {
+                    iframes_no_src++;
+                    continue;
+                }
+
+                var iframe_hostname = hostname; // assume if src invalid it's on the current domain
+                try {
+                    var iframe_src_url = new URL(iframe_srcs[i]);
+                    iframe_hostname = iframe_src_url.hostname;
+                } catch (e) {
+                    // Failed to convert src to URL
+                }
+                const checkInWhite = whitelist.filter((dataWhite) => {
+                    return iframe_hostname.includes(dataWhite);
+                });
+                if (checkInWhite.length == 0) {
+                    // Add iframe to table
+                    var tbody = document
+                        .getElementById("iframes")
+                        .getElementsByTagName("tbody")[0];
+                    var tr = tbody.insertRow(-1); // append row to end
+                    var td_domain = tr.insertCell(0);
+                    //var td_source = tr.insertCell(1);
+                    var td_delete = tr.insertCell(1);
+                    td_domain.innerHTML = iframe_hostname;
+                    td_domain.className += "domain";
+                    //td_source.innerHTML = iframe_srcs[i];
+                    td_delete.className += "delete";
+
+                    // Check if iframe src is from current domain
+                    if (hostname.indexOf(iframe_hostname) > -1) {
+                        td_domain.classList.add("iframeOk");
+                    } else {
+                        td_domain.classList.add("iframeWarning");
+                    }
+
+                    // Create delete button
+                    var deleteButton = document.createElement("button");
+                    deleteButton.className = "material-icons";
+                    deleteButton.innerHTML = "DEL";
+                    deleteButton.onclick = handleDeleteClick;
+                    deleteButton.dataset["id"] = i;
+                    td_delete.appendChild(deleteButton);
+                } else {
+                    ++countWhite;
+                }
+            }
+            if (countWhite != 0) {
+                // alert("Safe Iframe =" + countWhite);
+            }
+
+            if (
+                iframes_no_src != iframe_srcs.length &&
+                iframe_srcs.length != countWhite
+            ) {
+                document.getElementById("iframes").style.display = "block";
+            } else {
+                document.getElementById("iframes").style.display = "none";
+            }
+
+            if (iframes_no_src == 0) {
+                document.getElementById("deleteNoSrc").style.display = "none";
+            }
+
+            document.getElementById("iframesNoSrc").innerHTML =
+                "Note: Iframes no 'src': <b>" +
+                iframes_no_src.toString() +
+                "</b>";
+
+            document.getElementById("content").style.display = "block";
+            if (countWhite != 0 && countWhite == iframe_srcs.length) {
+                document.getElementById("default").innerHTML =
+                    countWhite + " Iframe in whitelist";
+                document.getElementById("default").style.display = "block";
+                document.getElementById("content").style.display = "none";
+            }
+            if (countWhite != 0) {
+                document.getElementById("default").innerHTML =
+                    countWhite + " Iframe in whitelist";
+                document.getElementById("default").style.display = "block";
+            }
+        } else {
+            document.getElementById("default").style.display = "block";
         }
+    });
 
-        document.getElementById("iframesNoSrc").innerHTML =
-            "Note: Iframes no 'src': <b>" + iframes_no_src.toString() + "</b>";
-
-        document.getElementById("content").style.display = "block";
-    } else {
-        document.getElementById("default").style.display = "block";
-    }
     // alert(
     //     whiteListChecked.find((domain) => {
     //         if (domain === "playmt.fastlycdn.xyz") {

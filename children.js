@@ -7,6 +7,8 @@ const classInputPassword = document.getElementsByClassName("form__input");
 const childrenProtectOnOff = document.getElementById("childrenProtectButton");
 const childrenBlackList = document.getElementById("childrenBlackList");
 //#############################################################################
+console.log(input);
+console.log(classInputPassword);
 
 //todo Get status xem đã set Password hay chưa
 const passwordLocal = localStorage.getItem("password");

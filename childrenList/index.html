@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Blocking Child | 3Block</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+
+  <!-- partial:index.partial.html -->
+  <section class="container" style="position:relative;  left:13%;">
+
+
+    <body class=" bodyBox">
+      <label class=" switch">
+        <input type="checkbox" class="inputBox" checked id="checkBoxChildrenOnOff" />
+        <div class="indicator left"></div>
+        <div class="indicator right"></div>
+        <div class="button"></div>
+      </label>
+    </body>
+
+
+    </div>
+    <div class="heading">
+      <img class="heading__img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/756881/laptop.svg">
+      <h1 class="heading__title">Children Block List 🔞</h1>
+    </div>
+
+    <form class="form">
+      <div>
+        <label class="form__label" id="childrenMode" for="todo">⚡ <b>Children Mode: On</b> ⚡</label>
+
+        <label class="form__label" id="form__label" for="todo">~ Add the url you want to block for your child here
+          ~</label>
+        <input class="form__input" type="text" id="todo" name="to-do" size="30" required>
+        <button class="buttonSubmit"><span>Submit</span></button>
+      </div>
+    </form>
+    <div>
+      <ul class="toDoList">
+      </ul>
+    </div>
+  </section>
+  <script src="./script.js"></script>
+
+</body>
+<form action="/childrenPassword/index.html">
+  <button class="buttonSubmit" style="position:relative; left:300px; top:-350px;"><span>Password's
+      Children</span></button>
+</form>
+<form action="/custom/index.html">
+  <button class="buttonSubmit" style="position:relative; left:135px; top:-290px;"><span>Setting Custom
+      List</span></button>
+</form>
+
+</html>

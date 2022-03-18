@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <title>Children Protect | 3Block</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+   <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900&amp;subset=latin,latin-ext" />
+   <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+   <!-- partial:index.partial.html -->
+   <div class="materialContainer">
+      <div class="box">
+         <div class="title" style="font-size: 30px;" id="EnterNewPassword">
+            Enter <b style="color: green;">Your</b> Password
+         </div>
+
+         <div class="input">
+            <p id="notePassword"></p>
+            <!-- <label style="font-size: medium;" id="notePassword">Username</label> -->
+            <!-- <input type="text" name="name" id="name" disabled>
+            <span class="spin"></span> -->
+         </div>
+
+         <div class="input form__field">
+            <label for="pass">Password</label>
+            <input type="password" name="pass" id="pass" class="form__input" id="inputPassword"
+               pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required />
+            <span class="icon"></span>
+            <span class="spin"></span>
+         </div>
+
+         <div class="button login">
+            <button id="button-login"><span>Enter to continue</span> <i class="fa fa-check"></i></button>
+         </div>
+
+         <div class="passForgot"><a href="#" class="pass-forgot">Forgot your password?</a></div>
+
+      </div>
+
+      <div class="overbox">
+         <div class="material-button alt-2">
+            <span class="shape"></span>
+         </div>
+
+         <div class="title" style="font-size: 30px">Forgot Password</div>
+
+         <div class="input">
+            <label for="regname">Current Password</label>
+            <input type="password" name="regname" id="regname" class="input-4" />
+            <span class="spin"></span>
+         </div>
+
+         <div class="input">
+            <label for="regpass">Password</label>
+            <input type="password" name="regpass" id="regpass" class="input-5" />
+            <span class="spin"></span>
+         </div>
+
+         <div class="input">
+            <label for="reregpass">Repeat Password</label>
+            <input type="password" name="reregpass" id="reregpass" class="input-6" />
+            <span class="spin"></span>
+         </div>
+
+         <div class="button" id="PasswordButton">
+            <button><span>NEXT</span></button>
+         </div>
+
+      </div>
+   </div>
+   <div class="row" style="width: 100%;margin-left: 2.5%;margin-right: 100%;margin-top: 30px;align-items: center;">
+      <h1 class='elegantshadow' style="display: block; font-size: 50px;" id="checkDisplayOnOff"></h1>
+   </div>
+
+
+   <div class="row">
+      <form action="/custom/index.html">
+         <div style="width: 100%; margin-left: 66%; margin-right: 100%;margin-top:15.5% ;align-items: center;">
+            <button class="button-33" role="button">
+               <span>
+                  <b>Setting Custom List </b>
+               </span>
+            </button>
+      </form>
+   </div>
+   <div style="width: 100%;margin-left: 1%;margin-right: 100%;margin-top: 1%;align-items: center;">
+      <div style="width: 100%; margin-left: 65%; margin-right: 100%;margin-top:10px ;align-items: center;">
+         <form action="/childrenList/index.html">
+            <button class="button-36" id="childrenBlackList" role="button" style="display: none;">
+               <span> <b>Black list</b> for Children </span>
+            </button>
+         </form>
+      </div>
+      <div style="width: 100%; margin-left: 65%; margin-right: 100%;margin-top:1% ;align-items: center;">
+         <button class="button-33" id="childrenProtectButton" role="button" style="display: none;">
+            <span>
+               <!-- Children Protect <b>On</b> -->
+            </span>
+         </button>
+      </div>
+   </div>
+
+
+   <br>
+
+
+   <script src="/custom/jquery.min.js"></script>
+   <script src="./script.js"></script>
+   <script src="./children.js"></script>
+</body>
+
+</html>
