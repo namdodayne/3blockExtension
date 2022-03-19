@@ -159,13 +159,13 @@ chrome.runtime.onInstalled.addListener(function (installed) {
         }
     });
     //todo Tạo custom black list
-    chrome.storage.local.get(["blocked", "enabled"], function (local) {
+    chrome.storage.local.get(["blocked", "enabledBlack"], function (local) {
         if (!Array.isArray(local.blocked)) {
             chrome.storage.local.set({ blocked: [] });
         }
 
-        if (typeof local.enabled !== "boolean") {
-            chrome.storage.local.set({ enabled: false });
+        if (typeof local.enabledBlack !== "boolean") {
+            chrome.storage.local.set({ enabledBlack: false });
         }
     });
     //todo Tạo custom children list
@@ -696,10 +696,7 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
 //block download
 //! Không bắt đc download
 chrome.downloads.onDeterminingFilename.addListener(function (item, suggest) {
-    console.log("item download: " + item.url);
-    setTimeout(() => {
-        console.log("Wait 1p");
-    }, 60000);
+    console.log(item.id);
     suggest({
         filename: item.filename,
         conflict_action: "prompt",
@@ -707,48 +704,81 @@ chrome.downloads.onDeterminingFilename.addListener(function (item, suggest) {
     });
 
     if (true) {
-        // your cancel condition
-        var match, results;
-        if (
-            (match = item.url.match(
-                /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im
-            ))
-        ) {
-            results = match[1];
-        }
+        chrome.storage.local.get(["tamthoi"], function (local) {
+            const { tamthoi } = local;
+            console.info("Tam thoi truoc Check = " + tamthoi);
 
-        chrome.storage.local.get(["blocked", "enabled"], function (local) {
-            const { blocked, enabled } = local;
-            if (
-                Array.isArray(blocked) &&
-                enabled &&
-                blocked.find((domain) => {
-                    if (domain === results) {
-                        return true;
+            const checkTamThoi = tamthoi.filter((dataTamThoi) => {
+                return dataTamThoi == item.url;
+            });
+            console.log("checkTamThoi in Filter = " + checkTamThoi);
+            const newCheckTamThoiStorage = [];
+            tamthoi.map((dataTamThoiNe) => {
+                if (dataTamThoiNe != checkTamThoi[0]) {
+                    newCheckTamThoiStorage.push(dataTamThoiNe);
+                }
+            });
+            chrome.storage.local.set({
+                tamthoi: newCheckTamThoiStorage,
+            });
+            chrome.storage.local.get(["tamthoi"], (dataTamThoi) => {
+                const { tamthoi } = dataTamThoi;
+                console.info("Local now sau check = " + tamthoi);
+            });
+            if (checkTamThoi.length == 0) {
+                console.log("ELSOOOOOOOOOO");
+                // your cancel condition
+                var match, results;
+                if (
+                    (match = item.url.match(
+                        /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im
+                    ))
+                ) {
+                    results = match[1];
+                }
+
+                chrome.storage.local.get(
+                    ["blocked", "enabledBlack"],
+                    function (local) {
+                        const { blocked, enabledBlack } = local;
+
+                        if (
+                            Array.isArray(blocked) &&
+                            enabledBlack &&
+                            blocked.find((domain) => {
+                                if (domain === results) {
+                                    return true;
+                                }
+                            })
+                        ) {
+                            console.log(item.id);
+                            chrome.downloads.cancel(item.id);
+                            chrome.tabs.update({
+                                url: "/404-black/dist/index3.html#" + item.url,
+                            });
+                        }
                     }
-                })
-            ) {
-                chrome.downloads.cancel(item.id);
-                chrome.tabs.update({
-                    url: "404.html#" + item.url,
-                });
-            }
-        });
-        chrome.storage.local.get(["blacklist", "evil"], function (local) {
-            const { blacklist, evil } = local;
-            if (
-                Array.isArray(blacklist) &&
-                evil &&
-                blacklist.find((domain) => {
-                    if (domain === results) {
-                        return true;
+                );
+                chrome.storage.local.get(
+                    ["blacklist", "evil"],
+                    function (local) {
+                        const { blacklist, evil } = local;
+                        if (
+                            Array.isArray(blacklist) &&
+                            evil &&
+                            blacklist.find((domain) => {
+                                if (domain === results) {
+                                    return true;
+                                }
+                            })
+                        ) {
+                            chrome.downloads.cancel(item.id);
+                            chrome.tabs.update({
+                                url: "/404-black/dist/index3.html#" + item.url,
+                            });
+                        }
                     }
-                })
-            ) {
-                chrome.downloads.cancel(item.id);
-                chrome.tabs.update({
-                    url: "404.html#" + item.url,
-                });
+                );
             }
         });
     }

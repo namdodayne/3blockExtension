@@ -153,6 +153,7 @@ function handleUpdatedIframes(iframes) {
     if (iframes == 0) {
         document.getElementById("content").style.display = "none";
         document.getElementById("default").style.display = "block";
+        document.getElementById("default").innerHTML = "No iframes detected!";
     }
 }
 
