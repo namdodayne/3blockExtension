@@ -11,12 +11,15 @@ const buttonPasswordLock = document.getElementById("inpLock");
 childrenBlackList.innerHTML = "<b>Black list</b> for Children";
 //todo Get status xem đã set Password hay chưa
 const passwordLocal = localStorage.getItem("password");
+var passwordEnable = false;
 if (!passwordLocal) {
     EnterNewPassword.innerHTML =
         " Enter <b style='color: red;'>NEW</b> Password";
+    localStorage.setItem("lockPassword", true);
     // EnterNewPassword.style.color = "green";
     document.getElementsByClassName("material-button")[0].style.display =
         "none";
+    document.getElementById("changePassword").style.display = "none";
 }
 const buttonLock = localStorage.getItem("lockPassword");
 if (buttonLock == "true") {
@@ -172,11 +175,19 @@ function submitPassword() {
         localStorage.setItem("password", passwd);
         document.getElementById("notePassword").innerHTML =
             "Successfully Set<br>New Password !";
+        passwordEnable = true;
         document.getElementById("notePassword").style.fontSize = "30px";
         document.getElementById("notePassword").style.color = "green";
         //! Hiện 2 cái nút here
         childrenProtectOnOff.style.display = "inline-block";
         childrenBlackList.style.display = "inline-block";
+        document.getElementsByClassName("material-button")[0].style.display =
+            "block";
+        document.getElementById("changePassword").style.display = "block";
+        buttonPasswordLock.checked = false;
+        // setTimeout(() => {
+        //     window.location.reload();
+        // }, 3000);
         // window.open("/childrenList.html");
     } else {
         var passwd = encrypt(classInputPassword[0].value);
@@ -192,10 +203,12 @@ function submitPassword() {
             document.getElementById("notePassword").style.fontSize = "35px";
             document.getElementById("notePassword").innerHTML =
                 "UNLOCK Successfully!";
+            passwordEnable = true;
             document.getElementById("notePassword").style.color = "green";
             //! Hiện cái nút ở đây
             childrenProtectOnOff.style.display = "inline-block";
             childrenBlackList.style.display = "inline-block";
+            buttonPasswordLock.checked = false;
         }
     }
 }
@@ -232,11 +245,21 @@ function encrypt(superSecretPhrase = "") {
 buttonPasswordLock.addEventListener("click", () => {
     // console.log(buttonPasswordLock.checked);
     localStorage.setItem("lockPassword", buttonPasswordLock.checked);
-    if (!buttonPasswordLock.checked) {
+
+    if (!buttonPasswordLock.checked && passwordEnable) {
         childrenProtectOnOff.style.display = "inline-block";
         childrenBlackList.style.display = "inline-block";
     } else {
         childrenProtectOnOff.style.display = "none";
         childrenBlackList.style.display = "none";
+    }
+    if (!passwordEnable) {
+        if (!buttonPasswordLock.checked) {
+            buttonPasswordLock.checked = true;
+        }
+        document.getElementById("notePassword").innerHTML =
+            "Enter Correct <br> Password First !";
+        document.getElementById("notePassword").style.fontSize = "35px";
+        document.getElementById("notePassword").style.color = "red";
     }
 });
