@@ -1,6 +1,6 @@
 {
-  "name": "3Block",
-  "description": "3Block Project: Protect with Black & White list. Blocking malicious URL. Children Protection: prevent your children access 18+ content on web browser with API and Computer Vision",
+  "name": "3Block | Capstone project",
+  "description": "Protect with Black & White list. Blocking malicious URL. Children Protection: prevent access 18+ content on web browser",
   "version": "1.0",
   "manifest_version": 3,
   "permissions": [
