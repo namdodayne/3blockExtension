@@ -1,6 +1,6 @@
 {
   "name": "3Block",
-  "description": "Build an Extension!",
+  "description": "Capstone project Group Spring 2022 semester | Protect your browser with 3Block. Using API connect to Black List and White list. Blocking malicious website or URL. Children Protection: prevent your children access 18+ content on web browser with API and Computer Vising. This is a free product and our team's graduation project.",
   "version": "1.0",
   "manifest_version": 3,
   "permissions": [
