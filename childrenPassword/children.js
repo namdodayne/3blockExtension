@@ -6,6 +6,7 @@ const classInputPassword = document.getElementsByClassName("form__input");
 const childrenProtectOnOff = document.getElementById("childrenProtectButton");
 const childrenBlackList = document.getElementById("childrenBlackList");
 const checkDisplayOnOff = document.getElementById("checkDisplayOnOff");
+const buttonPasswordLock = document.getElementById("inpLock");
 //#############################################################################
 childrenBlackList.innerHTML = "<b>Black list</b> for Children";
 //todo Get status xem đã set Password hay chưa
@@ -16,6 +17,16 @@ if (!passwordLocal) {
     // EnterNewPassword.style.color = "green";
     document.getElementsByClassName("material-button")[0].style.display =
         "none";
+}
+const buttonLock = localStorage.getItem("lockPassword");
+if (buttonLock == "true") {
+    buttonPasswordLock.checked = true;
+    childrenProtectOnOff.style.display = "none";
+    childrenBlackList.style.display = "none";
+} else {
+    buttonPasswordLock.checked = false;
+    childrenProtectOnOff.style.display = "inline-block";
+    childrenBlackList.style.display = "inline-block";
 }
 
 //#############################################################################
@@ -141,7 +152,6 @@ PasswordButton.addEventListener("click", () => {
 //############################################################################
 //todo Tạo mật khẩu mới or Đăng nhập khi Enter
 const buttonSubmitPassword = document.getElementById("button-login");
-console.log(buttonSubmitPassword);
 buttonSubmitPassword.addEventListener("click", () => {
     submitPassword();
 });
@@ -216,3 +226,17 @@ function encrypt(superSecretPhrase = "") {
     }
     return superSecretPhrase;
 }
+
+//todo Function On/Off Password Lock
+
+buttonPasswordLock.addEventListener("click", () => {
+    // console.log(buttonPasswordLock.checked);
+    localStorage.setItem("lockPassword", buttonPasswordLock.checked);
+    if (!buttonPasswordLock.checked) {
+        childrenProtectOnOff.style.display = "inline-block";
+        childrenBlackList.style.display = "inline-block";
+    } else {
+        childrenProtectOnOff.style.display = "none";
+        childrenBlackList.style.display = "none";
+    }
+});

@@ -3,14 +3,17 @@
 
 <head>
   <title>3 Block</title>
-  <link rel="stylesheet" href="popup.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
 
   <img id="soft" src="/images/logoMini.png" alt="logo 3block">
   <div class="wrapper">
-    <button class="button-33 center" id="myCheck" role="button">Children Mode: <b>On</b></button>
+    <button class="button-33" id="myCheck" role="button" style="margin-left :22%">Children Mode: <b>On</b></button>
+    <a href="/custom/index.html" target="_blank"><i class="fa fa-gear fa-spin"
+        style="font-size:24px;margin-left :8%"></i></a>
+
   </div>
   <div id="chart" class="chart-container"></div>
   <svg class="donut" width="300" height="100%" viewBox="0 0 44 44">
@@ -33,33 +36,36 @@
       <text x="50%" y="50%" class="chart-label">Safe</text>
     </g>
   </svg>
-  <!-- <div id="myChart" style="width: 100%; max-width: 100px; height: 50px"></div> -->
-  <!-- <h2 id="popup"></h2> -->
-  <!-- <h2 id="engine"></h2> -->
-  <div id="content">
+
+  <div id="loading" class="button-36">Waiting for page to load...</div>
+  <div id="default" class="button-33">No iframes detected!</div>
+  <div id="error" class="button-35">Sorry, an error occurred retrieving iframe information on this page.</div>
+
+  <div id="content" style="padding-top: 20px;">
     <table id="iframes">
       <!-- chỉ là css thôi -->
       <thead>
         <tr>
-          <td>Iframe Source Domain</td>
-          <td>Delete</td>
+          <td id="titleIfarm">Iframe Domain</td>
+          <td id="deleteIfarm">Delete</td>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
     <div id="noSrc">
       <span id="iframesNoSrc"></span>
-      <br />
-      <button id="deleteNoSrc" class="material-icons">delete</button>
+      <button id="deleteNoSrc" class="material-icons">Delete</button>
     </div>
-    <button id="deleteAll">Delete All <span class="material-icons">delete</span></button>
+    <button id="deleteAll" class="button-35">Delete All <span class="material-icons"></span></button>
   </div>
-  <div id="loading" class="notification">Waiting for page to load...</div>
-  <div id="default" class="notification">No iframes detected!</div>
-  <div id="error" class="notification">Sorry, an error occurred retrieving iframe information on this page.</div>
-  <div id="footer">Iframe Detector powered by <a id="siteLink" href="https://3block.systems/">3Block</a></div>
+  <!-- <div id="loading" class="button-36">Waiting for page to load...</div>
+  <div id="default" class="button-33">No iframes detected!</div>
+  <div id="error" class="button-35">Sorry, an error occurred retrieving iframe information on this page.</div> -->
+  <div id="footer" style="font-size: xx-small;">Iframe Detector powered by <a id="siteLink"
+      href="https://3block.systems/">3Block</a></div>
 </body>
 <script type="module" src="popup.js"></script>
 <script type="module" src="background.js"></script>
+<link rel="stylesheet" href="popup.css" />
 
 </html>

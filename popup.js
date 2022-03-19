@@ -228,6 +228,7 @@ async function handleIframeInfo(iframeInfo) {
     chrome.storage.local.get(["whitelist"], (local) => {
         const { whitelist } = local;
         var countWhite = 0;
+        var countNullUrl = 0;
         //todo Here is code iframe render
         // const whiteListChecked = await getWhiteListCheck();
         if (iframeInfo == undefined) {
@@ -258,7 +259,11 @@ async function handleIframeInfo(iframeInfo) {
                 const checkInWhite = whitelist.filter((dataWhite) => {
                     return iframe_hostname.includes(dataWhite);
                 });
-                if (checkInWhite.length == 0) {
+                if (iframe_hostname == "") {
+                    ++countNullUrl;
+                }
+
+                if (checkInWhite.length == 0 && iframe_hostname != "") {
                     // Add iframe to table
                     var tbody = document
                         .getElementById("iframes")
@@ -290,9 +295,6 @@ async function handleIframeInfo(iframeInfo) {
                     ++countWhite;
                 }
             }
-            if (countWhite != 0) {
-                // alert("Safe Iframe =" + countWhite);
-            }
 
             if (
                 iframes_no_src != iframe_srcs.length &&
@@ -307,22 +309,39 @@ async function handleIframeInfo(iframeInfo) {
                 document.getElementById("deleteNoSrc").style.display = "none";
             }
 
-            document.getElementById("iframesNoSrc").innerHTML =
-                "Note: Iframes no 'src': <b>" +
-                iframes_no_src.toString() +
-                "</b>";
-
+            if (iframes_no_src != 0) {
+                document.getElementById("iframesNoSrc").innerHTML =
+                    "Note: Iframes no 'src': <b>" +
+                    iframes_no_src.toString() +
+                    "</b>";
+            }
             document.getElementById("content").style.display = "block";
             if (countWhite != 0 && countWhite == iframe_srcs.length) {
-                document.getElementById("default").innerHTML =
-                    countWhite + " Iframe in whitelist";
+                if (countWhite == 1) {
+                    document.getElementById("default").innerHTML =
+                        "<b>" + countWhite + "</b> iframe in whitelist";
+                } else {
+                    document.getElementById("default").innerHTML =
+                        "<b>" + countWhite + "</b> iframes in whitelist";
+                }
+
                 document.getElementById("default").style.display = "block";
                 document.getElementById("content").style.display = "none";
             }
+
             if (countWhite != 0) {
-                document.getElementById("default").innerHTML =
-                    countWhite + " Iframe in whitelist";
+                if (countWhite == 1) {
+                    document.getElementById("default").innerHTML =
+                        "<b>" + countWhite + "</b> iframe in whitelist";
+                } else {
+                    document.getElementById("default").innerHTML =
+                        "<b>" + countWhite + "</b> iframes in whitelist";
+                }
                 document.getElementById("default").style.display = "block";
+            }
+            if (countNullUrl + iframes_no_src == iframe_srcs.length) {
+                document.getElementById("titleIfarm").style.display = "none";
+                document.getElementById("deleteIfarm").style.display = "none";
             }
         } else {
             document.getElementById("default").style.display = "block";
