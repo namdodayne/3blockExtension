@@ -156,7 +156,18 @@ PasswordButton.addEventListener("click", () => {
 //todo Tạo mật khẩu mới or Đăng nhập khi Enter
 const buttonSubmitPassword = document.getElementById("button-login");
 buttonSubmitPassword.addEventListener("click", () => {
-    submitPassword();
+    if (
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(
+            classInputPassword[0].value
+        )
+    ) {
+        submitPassword();
+    } else {
+        document.getElementById("notePassword").style.fontSize = "20px";
+        document.getElementById("notePassword").innerHTML =
+            "Minimum eight characters, at least one letter and one number";
+        document.getElementById("notePassword").style.color = "red";
+    }
 });
 $(".form__input").on("keyup", function search(ele) {
     if (

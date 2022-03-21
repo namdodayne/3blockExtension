@@ -34,6 +34,7 @@
             renderInvalidInput();
             return;
         }
+        toDoItem = filterURL(toDoItem);
         //pass ID and item into functions
         addItemToDOM(itemId, toDoItem);
         addItemToArray(itemId, toDoItem);
@@ -143,5 +144,17 @@
             "i"
         ); // fragment locator
         return !!pattern.test(str);
+    }
+
+    function filterURL(url) {
+        var match;
+        const hostname = url;
+        if (
+            (match = hostname.match(
+                /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im
+            ))
+        ) {
+            return match[1];
+        }
     }
 })();

@@ -66,6 +66,7 @@ function addItem(text, status, id, noUpdate) {
     var id = id ? id : generateID();
     var c = status === "done" ? "danger" : "";
     if (validURL(text)) {
+        text = filterURL(text);
         var item =
             '<li data-id="' +
             id +
@@ -97,6 +98,7 @@ function addItem(text, status, id, noUpdate) {
 
     if (!noUpdate) {
         if (text != "" && validURL(text)) {
+            text = filterURL(text);
             pushToState(text, "new", id);
         }
     }
@@ -337,4 +339,16 @@ function validURL(str) {
         "i"
     ); // fragment locator
     return !!pattern.test(str);
+}
+
+function filterURL(url) {
+    var match;
+    const hostname = url;
+    if (
+        (match = hostname.match(
+            /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im
+        ))
+    ) {
+        return match[1];
+    }
 }

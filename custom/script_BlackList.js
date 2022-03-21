@@ -62,6 +62,7 @@ function addItemBlack(text, status, id, noUpdate) {
     var id = id ? id : generateID();
     var c = status === "done" ? "danger" : "";
     if (validURL(text)) {
+        text = filterURL(text);
         var item =
             '<li data-id="' +
             id +
@@ -93,7 +94,10 @@ function addItemBlack(text, status, id, noUpdate) {
     }, 500);
 
     if (!noUpdate) {
-        if (text != "" && validURL(text)) pushToStateBlack(text, "new", id);
+        if (text != "" && validURL(text)) {
+            text = filterURL(text);
+            pushToStateBlack(text, "new", id);
+        }
     }
 }
 

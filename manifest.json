@@ -8,8 +8,7 @@
     "activeTab",
     "scripting",
     "tabs",
-    "downloads",
-    "declarativeNetRequest"
+    "downloads"
   ],
   "host_permissions": [
     "*://*/*"
