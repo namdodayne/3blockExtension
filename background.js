@@ -91,9 +91,9 @@ async function getdata(typeList) {
         chrome.storage.local.set({ good });
     }
 }
-function getCache18() {
+function getCache18(typeList) {
     fetch(
-        "https://api3blockserver.herokuapp.com/api/3block/system/getCache18",
+        "https://api3blockserver.herokuapp.com/api/3block/system/" + typeList,
         {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -103,12 +103,11 @@ function getCache18() {
             return res.json();
         })
         .then((cache18) => {
-            chrome.storage.local.set({ cache18 });
-            // chrome.storage.local.get(["blockedchild"], (datane) => {
-            //     console.log(datane);
-            // });
-            // console.log(cache18);
-            // console.log(res);
+            if (typeList == "getCache18") chrome.storage.local.set({ cache18 });
+            else {
+                chrome.storage.local.set({ notFound18: cache18 });
+                // console.log(cache18);
+            }
         });
 }
 
@@ -129,11 +128,12 @@ function is18Plus(url, isCheck) {
                 return res.json();
             })
             .then((result18) => {
-                console.log(result18);
+                // console.log(result18);
                 if (result18.result === "success") {
-                    getCache18();
+                    getCache18("getCache18");
                     resolve(true);
                 }
+                getCache18("getNotFound18");
                 resolve(false);
             })
             .catch((err) => {
@@ -147,7 +147,8 @@ function is18Plus(url, isCheck) {
 chrome.runtime.onInstalled.addListener(function (installed) {
     getdata("Black");
     getdata("White");
-    getCache18();
+    getCache18("getCache18");
+    getCache18("getNotFound18");
     // is18Plus("pornhub.com");
     //! Mở 3 Block Here
     // chrome.tabs.create({ url: "https://3block.systems/" }, function (tab) {
@@ -305,11 +306,11 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                         if (results == undefined) {
                             return;
                         }
-                        console.warn("Check DB ! : " + results);
+                        // console.warn("Check DB ! : " + results);
                         // return;
 
                         if (checkChildOnOff) {
-                            console.warn("Children Protect ON");
+                            // console.warn("Children Protect ON");
                             function blockChildCustom() {
                                 return new Promise((resolve, reject) => {
                                     chrome.storage.local.get(
@@ -341,7 +342,7 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                                 );
                                 return;
                             }
-                            console.info("Custom child next! :" + results);
+                            // console.info("Custom child next! :" + results);
                         }
 
                         //todo Go continue
@@ -352,9 +353,9 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                                     ["tamthoi"],
                                     function (local) {
                                         const { tamthoi } = local;
-                                        console.info(
-                                            "Tam thoi truoc Check = " + tamthoi
-                                        );
+                                        // console.info(
+                                        //     "Tam thoi truoc Check = " + tamthoi
+                                        // );
                                         // if (tamthoi == undefined) {
                                         //     resolve(true);
                                         // }
@@ -363,10 +364,10 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                                                 return dataTamThoi == results;
                                             }
                                         );
-                                        console.log(
-                                            "checkTamThoi in Filter = " +
-                                                checkTamThoi
-                                        );
+                                        // console.log(
+                                        //     "checkTamThoi in Filter = " +
+                                        //         checkTamThoi
+                                        // );
                                         const newCheckTamThoiStorage = [];
                                         tamthoi.map((dataTamThoiNe) => {
                                             if (
@@ -384,10 +385,10 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                                             ["tamthoi"],
                                             (dataTamThoi) => {
                                                 const { tamthoi } = dataTamThoi;
-                                                console.info(
-                                                    "Local now sau check = " +
-                                                        tamthoi
-                                                );
+                                                // console.info(
+                                                //     "Local now sau check = " +
+                                                //         tamthoi
+                                                // );
                                             }
                                         );
                                         if (checkTamThoi.length != 0) {
@@ -446,8 +447,8 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                                     ["blocked", "enabledBlack"],
                                     function (local) {
                                         const { blocked, enabledBlack } = local;
-                                        console.log(blocked);
-                                        console.log(enabledBlack);
+                                        // console.log(blocked);
+                                        // console.log(enabledBlack);
                                         if (
                                             Array.isArray(blocked) &&
                                             enabledBlack &&
@@ -588,7 +589,6 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                         }
 
                         if (checkChildOnOff) {
-                            getCache18();
                             const checkCache18Plus = await blockCache18Plus();
                             if (checkCache18Plus) {
                                 console.warn(
@@ -671,7 +671,38 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                             if (checkWhiteOn) {
                                 return;
                             }
+                            //todo White list Public check
+                            function blockNotFound18() {
+                                return new Promise((resolve, reject) => {
+                                    chrome.storage.local.get(
+                                        ["notFound18"],
+                                        function (local) {
+                                            const { notFound18 } = local;
+                                            if (
+                                                Array.isArray(notFound18) &&
+                                                notFound18.find((domain) => {
+                                                    if (
+                                                        domain.url === results
+                                                    ) {
+                                                        return true;
+                                                    }
+                                                })
+                                            ) {
+                                                resolve(true);
+                                            }
+                                            resolve(false);
+                                        }
+                                    );
+                                });
+                            }
+                            const checkNotFound18 = await blockNotFound18();
+                            //! Nếu có trong Not Found rồi thì ko scan 18+
+                            if (checkNotFound18) {
+                                console.log("Check True by Not Found 18+");
+                                return;
+                            }
                             console.log("call API AI! : " + results);
+                            // return;
                             const isAdult = await is18Plus(results, false); //todo False là ko có AI
                             // const isAdult = false;
                             // console.log("IsAdult " + isAdult);
@@ -726,7 +757,7 @@ chrome.downloads.onDeterminingFilename.addListener(function (item, suggest) {
                 console.info("Local now sau check = " + tamthoi);
             });
             if (checkTamThoi.length == 0) {
-                console.log("ELSOOOOOOOOOO");
+                // console.log("ELSOOOOOOOOOO");
                 // your cancel condition
                 var match, results;
                 if (
