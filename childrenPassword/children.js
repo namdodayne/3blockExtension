@@ -200,6 +200,7 @@ function submitPassword() {
             "block";
         document.getElementById("changePassword").style.display = "block";
         buttonPasswordLock.checked = false;
+        localStorage.setItem("lockPassword", false);
         // setTimeout(() => {
         //     window.location.reload();
         // }, 3000);
@@ -225,6 +226,7 @@ function submitPassword() {
             childrenBlackList.style.display = "inline-block";
             childrenHistory.style.display = "inline-block";
             buttonPasswordLock.checked = false;
+            localStorage.setItem("lockPassword", false);
         }
     }
 }
@@ -279,5 +281,6 @@ buttonPasswordLock.addEventListener("click", () => {
             "Enter Correct <br> Password First !";
         document.getElementById("notePassword").style.fontSize = "35px";
         document.getElementById("notePassword").style.color = "red";
+        localStorage.setItem("lockPassword", true);
     }
 });
