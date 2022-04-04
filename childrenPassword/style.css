@@ -412,6 +412,49 @@ html {
     overflow: hidden;
 }
 
+.ButtonCss1 {
+    width: 100%;
+    /* margin-left: 66%;
+    margin-right: 100%;
+    margin-top: 15.5%; */
+    align-items: center;
+    position: absolute;
+    top: calc(43%);
+    left: calc(50% + 260px);
+}
+
+.ButtonCss2 {
+    width: 100%;
+    /* margin-left: 65%;
+    margin-right: 100%;
+    margin-top: 10px; */
+    align-items: center;
+    position: absolute;
+    top: calc(43% + 50px);
+    left: calc(50% + 260px);
+}
+
+.ButtonCss3 {
+    /* width: 100%;
+    margin-left: 65%;
+    margin-right: 100%;
+    margin-top: 1%; */
+    align-items: center;
+    position: absolute;
+    top: calc(43% + 100px);
+    left: calc(50% + 260px);
+}
+
+.ButtonCss4 {
+    /* width: 100%;
+    margin-left: 65%;
+    margin-right: 100%;
+    margin-top: 1%; */
+    align-items: center;
+    position: absolute;
+    top: calc(43% + 150px);
+    left: calc(50% + 260px);
+}
 .materialContainer {
     width: 100%;
     max-width: 460px;

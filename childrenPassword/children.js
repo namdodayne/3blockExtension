@@ -5,6 +5,7 @@ const EnterNewPassword = document.getElementById("EnterNewPassword");
 const classInputPassword = document.getElementsByClassName("form__input");
 const childrenProtectOnOff = document.getElementById("childrenProtectButton");
 const childrenBlackList = document.getElementById("childrenBlackList");
+const childrenHistory = document.getElementById("childrenHistory");
 const checkDisplayOnOff = document.getElementById("checkDisplayOnOff");
 const buttonPasswordLock = document.getElementById("inpLock");
 //#############################################################################
@@ -26,10 +27,12 @@ if (buttonLock == "true") {
     buttonPasswordLock.checked = true;
     childrenProtectOnOff.style.display = "none";
     childrenBlackList.style.display = "none";
+    childrenHistory.style.display = "none";
 } else {
     buttonPasswordLock.checked = false;
     childrenProtectOnOff.style.display = "inline-block";
     childrenBlackList.style.display = "inline-block";
+    childrenHistory.style.display = "inline-block";
 }
 
 //#############################################################################
@@ -192,6 +195,7 @@ function submitPassword() {
         //! Hiện 2 cái nút here
         childrenProtectOnOff.style.display = "inline-block";
         childrenBlackList.style.display = "inline-block";
+        childrenHistory.style.display = "inline-block";
         document.getElementsByClassName("material-button")[0].style.display =
             "block";
         document.getElementById("changePassword").style.display = "block";
@@ -219,6 +223,7 @@ function submitPassword() {
             //! Hiện cái nút ở đây
             childrenProtectOnOff.style.display = "inline-block";
             childrenBlackList.style.display = "inline-block";
+            childrenHistory.style.display = "inline-block";
             buttonPasswordLock.checked = false;
         }
     }
@@ -260,9 +265,11 @@ buttonPasswordLock.addEventListener("click", () => {
     if (!buttonPasswordLock.checked && passwordEnable) {
         childrenProtectOnOff.style.display = "inline-block";
         childrenBlackList.style.display = "inline-block";
+        childrenHistory.style.display = "inline-block";
     } else {
         childrenProtectOnOff.style.display = "none";
         childrenBlackList.style.display = "none";
+        childrenHistory.style.display = "none";
     }
     if (!passwordEnable) {
         if (!buttonPasswordLock.checked) {

@@ -7,11 +7,17 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
    <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900&amp;subset=latin,latin-ext" />
+
    <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
+
+   <div class="row" style="width: 100%;margin-left: 2.5%;margin-right: 100%;margin-top: 30px;align-items: center;">
+      <h1 class='elegantshadow' style="display: block; font-size: 50px;" id="checkDisplayOnOff"></h1>
+   </div>
    <!-- partial:index.partial.html -->
+
    <div class="materialContainer">
       <div class="box">
          <div class="title" style="font-size: 30px;" id="EnterNewPassword">
@@ -37,7 +43,8 @@
          <div class="button login">
             <button id="button-login"><span>Enter to continue</span> <i class="fa fa-check"></i></button>
          </div>
-         <div class="passForgot"><a href="#" class="pass-forgot" id="changePassword">Change your password?</a></div>
+         <div class="passForgot"><a href="#" class="pass-forgot" id="changePassword">Change your password?</a>
+         </div>
 
       </div>
 
@@ -72,14 +79,10 @@
 
       </div>
    </div>
-   <div class="row" style="width: 100%;margin-left: 2.5%;margin-right: 100%;margin-top: 30px;align-items: center;">
-      <h1 class='elegantshadow' style="display: block; font-size: 50px;" id="checkDisplayOnOff"></h1>
-   </div>
 
-
-   <div class="row">
+   <div>
       <form action="/custom/index.html">
-         <div style="width: 100%; margin-left: 66%; margin-right: 100%;margin-top:15.5% ;align-items: center;">
+         <div class="ButtonCss1">
             <button class="button-33" role="button">
                <span>
                   <b>Setting Custom List </b>
@@ -87,15 +90,20 @@
             </button>
       </form>
    </div>
-   <div style="width: 100%;margin-left: 1%;margin-right: 100%;margin-top: 1%;align-items: center;">
-      <div style="width: 100%; margin-left: 65%; margin-right: 100%;margin-top:10px ;align-items: center;">
-         <form action="/childrenList/index.html">
+
+
+   <div>
+      <form action="/childrenList/index.html">
+         <div class="ButtonCss2">
             <button class="button-36" id="childrenBlackList" role="button" style="display: none;">
                <span> <b>Black list</b> for Children </span>
             </button>
-         </form>
-      </div>
-      <div style="width: 100%; margin-left: 65%; margin-right: 100%;margin-top:1% ;align-items: center;">
+         </div>
+      </form>
+   </div>
+
+   <div>
+      <div class="ButtonCss3">
          <button class="button-33" id="childrenProtectButton" role="button" style="display: none;">
             <span>
                <!-- Children Protect <b>On</b> -->
@@ -103,6 +111,18 @@
          </button>
       </div>
    </div>
+
+   <div>
+      <form action="/log/log.html">
+         <div class="ButtonCss4">
+            <button class="button-36" id="childrenHistory" role="button" style="display: none;">
+               <span> <b>History</b> of Children </span>
+            </button>
+         </div>
+      </form>
+   </div>
+
+
 
    <input id="inpLock" type="checkbox" />
    <label class="btn-lock" for="inpLock">
@@ -122,6 +142,7 @@
    <script src="/custom/jquery.min.js"></script>
    <script src="./script.js"></script>
    <script src="./children.js"></script>
+
 </body>
 
 </html>

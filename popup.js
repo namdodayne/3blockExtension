@@ -131,10 +131,12 @@ chrome.storage.local.get(["enabledchild"], (dataChild) => {
     const { enabledchild } = dataChild;
     if (!enabledchild) {
         checkBox.innerHTML = "Children Mode: <b>Off</b>";
+        checkBox.className = "button-36";
         checkBox.style.color = "black";
     } else {
         checkBox.innerHTML = "Children Mode: <b>On</b>";
         checkBox.style.color = "green";
+        checkBox.className = "button-33";
     }
 });
 checkBox.addEventListener("click", function () {

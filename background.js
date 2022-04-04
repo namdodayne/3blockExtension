@@ -159,6 +159,12 @@ chrome.runtime.onInstalled.addListener(function (installed) {
             chrome.storage.local.set({ tamthoi: [] });
         }
     });
+
+    chrome.storage.local.get(["timeLog"], function (local) {
+        if (!Array.isArray(local.timeLog)) {
+            chrome.storage.local.set({ timeLog: [] });
+        }
+    });
     //todo Tạo custom black list
     chrome.storage.local.get(["blocked", "enabledBlack"], function (local) {
         if (!Array.isArray(local.blocked)) {
@@ -287,6 +293,16 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
 
                     var i = 0;
                     // if (!surl.startsWith('chrome://', 0) && chkblacklist !== null)
+                    if (surl == "chrome://extensions/" && checkChildOnOff) {
+                        chrome.storage.local.get("timeLog", (timeLocalLog) => {
+                            const { timeLog } = timeLocalLog;
+                            // console.log(timeLog);
+                            // console.log(String(new Date()));
+                            chrome.storage.local.set({
+                                timeLog: [...timeLog, String(new Date())],
+                            });
+                        });
+                    }
                     if (
                         !surl.startsWith("chrome", 0) &&
                         !surl.startsWith("https://chrome.google.com/", 0)
@@ -671,7 +687,7 @@ chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
                             if (checkWhiteOn) {
                                 return;
                             }
-                            //todo White list Public check
+                            //todo Not Found 18 check
                             function blockNotFound18() {
                                 return new Promise((resolve, reject) => {
                                     chrome.storage.local.get(

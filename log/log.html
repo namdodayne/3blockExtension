@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Log | 3Block</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="../custom/bootstrap.min.css">
+    <link rel='stylesheet' href='../custom/all.css'>
+    <link rel='stylesheet' href='../custom/font-awesome.min.css'>
+    <link rel='stylesheet' href='../custom/icon.css'> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="log.css">
+    <script src="../custom/jquery.min.js"></script>
+    <script src="../custom/bootstrap.min.js"></script>
+    <script src="log.js"></script>
+
+
+
+
+</head>
+
+
+<body>
+    <div class="container-xxl">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+
+                    <div class="col-sm-5">
+                        <div>
+                            <button class="form-control btn-danger" style="color: black; white-space: nowrap;"
+                                id="DeleteAll"><i class="fa fa-trash"></i>
+                                <b>Delete</b></button>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <h3 style=" white-space: nowrap; margin-left: 1em;">🚫 Log 🚫</h3>
+                    </div>
+
+                    <div class="col-sm-1">
+                        <form action="/custom/index.html">
+                            <button class="form-control btn-warning buttonRight1"
+                                style="color: black; white-space: nowrap;"><i class="fa fa-home"></i>
+                                <b>Setting</b></button>
+                        </form>
+                    </div>
+
+
+                    <div class="col-sm-1">
+                        <form action="/childrenPassword/index.html">
+                            <button class="form-control btn-success buttonRight2"
+                                style="color: black; white-space: nowrap;"><i class="fa fa-warning"></i>
+                                <b>Children Mode</b></button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <p id="RenderData"></p>
+
+    <div class="clearfix">
+        <div class="hint-text" style="float: left; margin-top: 3px;">Showing <b id="Render"></b> out of <b
+                id="Total"></b>
+            entries
+        </div>
+        <ul class="pagination" id="pagination-wrapper">
+
+        </ul>
+    </div>
+
+</body>
+
+
+</html>
